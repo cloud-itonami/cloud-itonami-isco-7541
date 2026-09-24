@@ -1,0 +1,35 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a dive-operation scheduling/logistics
+;; coordination robot logs work records, proposes dive-team schedules,
+;; surfaces safety concerns and coordinates dive-equipment/gas supply; it never
+;; dives and never authorizes a dive. Its physical work is on the dive deck:
+;; carrying gas cylinders on a cart across a heeling vessel deck, and racking
+;; cylinders.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-7541"
+ :cases
+ [{:id :cylinder-cart-on-deck
+   :kind :transport
+   :procedure "deck cart carries a bank of gas cylinders from the gas store to the dive station up the deck's heel"
+   :params {:mass-kg 60.0 :payload-kg 120.0 :distance-m 25.0 :v-max-mps 0.6 :a-max-mps2 0.4
+            :brake-decel-mps2 1.5 :drive-force-n 400.0 :crr 0.02
+            :cog-height-m 0.30 :payload-cog-height-m 0.75 :support-half-length-m 0.35
+            :max-time-s 1200.0}
+   :sweep {:param :slope-deg :values [0.0 3.0 6.0 9.0 12.0]}
+   :quantity :cycle-time-s
+   :limit {:max 60.0 :basis "estimate: a gas change-over at the dive station should not wait more than one minute per cart leg"}
+   :boundary {:lo 0.0 :hi 20.0}}
+  {:id :cylinder-into-rack
+   :kind :manipulator
+   :procedure "arm lifts a scuba/bail-out cylinder from the cart into the deck cylinder rack"
+   :params {:l1-m 0.60 :l2-m 0.50 :m1-kg 8.0 :m2-kg 5.0
+            :from [0.70 0.05] :to [0.35 0.60] :duration-s 3.0 :steps 600}
+   :sweep {:param :payload-kg :values [8.0 12.0 16.0 20.0 25.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 250.0 :basis "estimate: continuous shoulder torque of a ~20 kg-class collaborative arm"}
+   :boundary {:lo 1.0 :hi 60.0}}]}
