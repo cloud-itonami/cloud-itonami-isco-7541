@@ -1,5 +1,5 @@
 (ns divecoord.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [divecoord.store :as store]
             [divecoord.advisor :as advisor]
             [divecoord.governor :as governor]))
