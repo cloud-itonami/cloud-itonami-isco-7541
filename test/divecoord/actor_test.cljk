@@ -1,5 +1,5 @@
 (ns divecoord.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [divecoord.actor :as actor]
             [divecoord.store :as store]))
 
