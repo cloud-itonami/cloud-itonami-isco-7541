@@ -1,7 +1,7 @@
 (ns divecoord.store
   "SSoT for the ISCO-08 7541 underwater divers dive-operation
   scheduling/logistics coordination actor (itonami actor pattern,
-  ADR-2607121000 / CLAUDE.md Actors section; README's 'Robotics
+  ADR-2607121000 / AGENTS.md Actors section; README's 'Robotics
   premise' — a dive-operation scheduling/logistics coordination robot
   proposes crew/dive-team scheduling, work-record logging,
   safety-concern flags and dive-equipment/gas-supply order
